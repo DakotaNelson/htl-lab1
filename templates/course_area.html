@@ -1,16 +1,33 @@
 <html>
   <head>
     <title>Olin Course Catalog: {{ course_area }}</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <style type="text/css">
       td, th { border: 0 !important; }
     </style>
   </head>
   <body>
-    <dl>
-      {% for index, course in courses %}
-        <dt>{{ course.course_number }}: {{ course.course_name }} ({{ course.course_contact }})</dt>
-        <dd>{{ course.course_description }}</dd>
-      {% endfor %}
-    </dl>
+    <br>
+    <br>
+    <br>
+
+    <div class="container">
+      <center>
+        <a href="/" class="btn btn-primary btn-lg">< Home</a>
+      </center>
+
+      <br>
+      <br>
+      <br>
+
+      <dl>
+        {% for index, course in courses %}
+          <dt>{{ course.course_number }}: {{ course.course_name }} ({{ course.course_contact }})</dt>
+          <dd>{{ course.course_description }}</dd>
+          <br>
+          <br>
+        {% endfor %}
+      </dl>
+    </div>
   </body>
 </html>
