@@ -15,17 +15,39 @@ app = Flask(__name__)
 
 courses = pd.read_csv('./data/olin-courses-16-17.csv')
 
+def split_names(namestring):
+    # first, split multi-name strings with semicolons
+    names = namestring.split("; ")
+
+    ret =[]
+    for name in names:
+        ret.append(" ".join(list(reversed(name.split(", ")))))
+
+    return " ".join(ret)
+
+# make the names not be reversed
+courses["course_contact"] = courses["course_contact"].dropna().apply(
+        # something something readability of oneliners?
+        lambda name: split_names(name)
+)
+
 @app.route('/health')
 def health():
     return 'ok'
 
 @app.route('/')
 def home_page():
-    # something something readability?
-    courses["course_contact"] = courses["course_contact"].dropna().apply(
-            lambda name: " ".join(list(reversed(name.split(", "))))
-    )
     return render_template('index.html', areas=set(courses.course_area), contacts=set(courses.course_contact.dropna()))
+
+@app.route('/instructor/<string:lastname>')
+def courses_by_instructor(lastname):
+    # pretty ugly hack to deal with case sensitivity
+    localCourses = courses.copy(deep=True)
+    localCourses["course_contact"] = localCourses["course_contact"].dropna().apply(
+            lambda name: name.lower()
+    )
+    ret = courses.loc[localCourses["course_contact"].str.contains(lastname.lower()).fillna(value=False)]
+    return render_template('course_area.html', courses=ret.iterrows())
 
 @app.route('/area/<course_area>')
 def area_page(course_area):
