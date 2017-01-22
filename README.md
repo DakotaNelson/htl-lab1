@@ -68,6 +68,9 @@ could break it with no warning.
 ## Contributors
 
 Written by Oliver Steele <oliver.steele@olin.edu>.
+Modified by Dakota Nelson <dakota.nelson@students.olin.edu>
+
+Modifications: visual cleanup, addition of ability to search for courses by instructor, made instructor names more human readable (i.e. "Oliver Steele" instead of "Steele, Oliver")
 
 
 ## License
