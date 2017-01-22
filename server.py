@@ -21,6 +21,10 @@ def health():
 
 @app.route('/')
 def home_page():
+    # something something readability?
+    courses["course_contact"] = courses["course_contact"].dropna().apply(
+            lambda name: " ".join(list(reversed(name.split(", "))))
+    )
     return render_template('index.html', areas=set(courses.course_area), contacts=set(courses.course_contact.dropna()))
 
 @app.route('/area/<course_area>')
