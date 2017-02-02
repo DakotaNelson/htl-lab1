@@ -54,4 +54,5 @@ def area_page(course_area):
     return render_template('course_area.html', courses=courses[courses.course_area == course_area].iterrows())
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 5000)))
+    app.run(host='0.0.0.0', debug=True, port=port)
