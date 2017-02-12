@@ -55,4 +55,11 @@ def area_page(course_area):
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', debug=True, port=port)
+
+    production = bool(os.environ.get('PRODUCTION', False))
+    if production:
+        host = '0.0.0.0'
+    else:
+        host = '127.0.0.1'
+
+    app.run(host=host, debug=True, port=port)
